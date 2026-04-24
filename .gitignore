@@ -1,0 +1,68 @@
+# ROS workspaces / build artifacts
+build/
+install/
+log/
+logs/
+devel/
+build_isolated/
+devel_isolated/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node
+node_modules/
+
+# IDE / editor
+.vscode/
+.idea/
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary / backup
+*~
+.#*
+*.swp
+*.swo
+
+# Legacy ROS1 generated artifacts
+msg_gen/
+srv_gen/
+msg/*Action.msg
+msg/*ActionFeedback.msg
+msg/*ActionGoal.msg
+msg/*ActionResult.msg
+msg/*Feedback.msg
+msg/*Goal.msg
+msg/*Result.msg
+msg/_*.py
+srv/_*.py
+CATKIN_IGNORE
+
+# Misc
+*.pcd
+
+# CMake / CTest (in-source or ad-hoc builds)
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+CTestConfiguration.ini
+CTestCustom.cmake
+compile_commands.json
+Makefile
+Testing/
+
+# Python virtual environments and tooling caches
+.venv/
+venv/
+.pytest_cache/
+
+# Runtime and logs
+*.log

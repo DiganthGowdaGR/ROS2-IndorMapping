@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="world_file" default="$(find indoor_bot)/worlds/big_apartment.world"/>
+    <arg name="configuration_basename" default="indoor_bot_lidar_slam_2d_gazebo.lua"/>
+    <arg name="remap_map_topic" default="false" />
+    <arg name="remap_map_topic_name" default="/cmap" />
+
+    <arg name="x" default="0.0"/>
+    <arg name="y" default="0.0"/>
+    <arg name="z" default="0.0"/>
+    <arg name="roll" default="0.0"/>
+    <arg name="pitch" default="0.0"/>
+    <arg name="yaw" default="0.0"/>
+
+    <!-- Launch WORLD -->
+    <include file="$(find indoor_bot)/launch/include/world.launch">
+        <arg name="world_file" value="$(arg world_file)"/>
+    </include>
+
+    <!-- Launch ROBOT -->
+    <include file="$(find indoor_bot)/launch/include/indoor_bot.launch">
+        <arg name="x" value="$(arg x)"/>
+        <arg name="y" value="$(arg y)"/>
+        <arg name="z" value="$(arg z)"/>
+        <arg name="roll" value="$(arg roll)"/>
+        <arg name="pitch" value="$(arg pitch)"/>
+        <arg name="yaw" value="$(arg yaw)"/>
+    </include>
+
+    <!-- Launch SLAM -->
+    <include file="$(find indoor_bot)/launch/include/cartographer_slam.launch">
+        <arg name="configuration_basename" value="$(arg configuration_basename)"/>
+        <arg name="remap_map_topic" value="$(arg remap_map_topic)"/>
+        <arg name="remap_map_topic_name" value="$(arg remap_map_topic_name)" />
+    </include>
+
+
+    <!-- Static Transform Node from `odom` to `map` frame - Required by move_base node -->
+    <include file="$(find indoor_bot)/launch/move_base/static_transform_odom_to_map.launch"/>
+
+
+    <!-- MOVE Base Node - DWAPlannerROS -->
+    <include file="$(find indoor_bot)/launch/move_base/localplanner_DWAPlannerROS.launch"/>
+    
+    <!-- Autonomous exploration: RRT Exploration -->
+    <include file="$(find indoor_bot)/launch/exploration/rrt_exploration.launch">
+        <arg name="robot_frame" value="robot_footprint"/>
+        <arg name="global_frame" value="map"/>
+        <arg name="map_topic" value="/map"/>
+    </include>
+
+
+    <!-- RVIZ -->
+    <include file="$(find indoor_bot)/launch/include/rviz.launch">
+        <arg name="rviz_config" value="$(find indoor_bot)/rviz/indoor_bot.rviz"/>
+    </include>
+
+</launch>
