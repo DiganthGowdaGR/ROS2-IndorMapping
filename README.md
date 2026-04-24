@@ -1,5 +1,7 @@
 # Radar-and-ROS-Powered-Indoor-Mapping-Robot
 
+![Project High-Level Architecture](media/MAR-ARCH-MIN-PROJECT.png)
+
 ROS 2 Humble simulation project for indoor SLAM using Gazebo Classic, Cartographer, and manual/autonomous operation modes.
 
 ## Table of Contents
